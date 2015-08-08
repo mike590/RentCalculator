@@ -1,0 +1,11 @@
+#dashboard {
+  width: 90%;
+  height: 1000px;
+  border: solid 4px black;
+  border-radius: 10px;
+  margin: auto auto;
+  background-color: yellow;
+  display: block;
+}
+
+
