@@ -1,16 +1,23 @@
 #rooms_display {
   width: 90%;
-  height: 1000px;
-  border: solid 4px black;
+  height: 500px;
+  border: solid 2px black;
   border-radius: 10px;
   margin: auto auto;
-  background-color: yellow;
   display: block;
 }
 
 .room {
   float: left;
   border: solid 3px black;
-  height: 25%;
+  height: 40%;
   width: 20%;
+}
+
+#sharesDiv {
+  display: table;
+}
+
+.shares {
+  float: left;
 }
