@@ -68,6 +68,7 @@ function drawRooms(count){
       occ.id = i;
       occ.type = "number";
       occ.value = 1;
+      occ.min = 1;
       occ.addEventListener("change", function(e){
         rooms[parseInt(this.id)]["occupancy"] = parseInt(this.value);
 

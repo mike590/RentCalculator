@@ -20,4 +20,9 @@
 
 .shares {
   float: left;
+  margin-left: 15px;
+}
+
+.cost, .percent {
+  text-align: center;
 }
