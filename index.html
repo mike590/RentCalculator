@@ -9,13 +9,7 @@
 <body>
 
   <h1>There are
-  <select name="rooms" id="room_count">
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-  </select>
+  <input type="number" value=1 id="room_count" />
   rooms.</h1>
   <h1>The rent is <input type="number" id='rent' value=2500></input></h1>
   <input type="range" id='split' min=0 max=100 step=1  value=80 />
@@ -34,12 +28,23 @@
   </div>
 
 
-<!-- <svg width="100" height="100" style="border:solid 2px #006600;" id='test'></svg> -->
+<svg width="90%" height="250px" style="border:solid 2px #006600;" id='svgTest'>
+  <rect x="20" y="20" height="50" width="50" style="stroke:#006600;" />
+</svg>
 <div id="rooms_display">
   
 </div>
 
-
+<script type="text/javascript">
+  var svg = document.querySelector("#svgTest")
+  var rect = document.createElement("rect");
+  rect.setAttribute("x", "40");
+  rect.setAttribute("y", "40");
+  rect.setAttribute("height", "40");
+  rect.setAttribute("width", "40");
+  rect.style.stroke = "#006600";
+  svg.appendChild(rect);
+</script>
 
   
 </body>

@@ -36,7 +36,7 @@ window.onload = function(){
     roomPercent.textContent = "%" + (roomCostPercentage*100).toFixed(2);
     roomCost.textContent = "$" + totalRoomCost.toFixed(2);
     personPercent.textContent = "%" + (100 - roomCostPercentage*100).toFixed(2);
-    roomCost.textContent = "$" + (rent - totalRoomCost).toFixed(2); 
+    personCost.textContent = "$" + (rent - totalRoomCost).toFixed(2); 
 
     drawRooms(roomCount);
   });  
@@ -124,7 +124,22 @@ function drawRooms(count){
     p3.className = "totalCost";
     p3.textContent = "Total Cost: $" + (perRoomCost + perPersonCost * rooms[room]["occupancy"]).toFixed(2);
     div.appendChild(p3);
-    
+    // create svg element
+    var svg = document.createElement("svg");
+    svg.setAttribute("height", "10%");
+    svg.setAttribute("width", "10%");
+    var rect = document.createElement("rect");
+    rect.setAttribute("x", "40");
+    rect.setAttribute("y", "40");
+    rect.setAttribute("height", "40");
+    rect.setAttribute("width", "40");
+    rect.style.stroke = "#006600";
+    svg.appendChild(rect);
+    // <rect x="10" y="10" height="100" width="100"
+    //     style="stroke:#006600; fill: #00cc00"/>
+    div.appendChild(svg);
+
+
   }
 }
 

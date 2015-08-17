@@ -1,6 +1,11 @@
+#test {
+  margin: 15px auto;
+  display: block;
+}
+
 #rooms_display {
   width: 90%;
-  height: 500px;
+  height: 750px;
   border: solid 2px black;
   border-radius: 10px;
   margin: auto auto;
@@ -10,8 +15,10 @@
 .room {
   float: left;
   border: solid 3px black;
-  height: 40%;
-  width: 20%;
+  height: 45%;
+  width: 22%;
+  margin: 1%;
+  display: block;
 }
 
 #sharesDiv {
