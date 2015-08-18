@@ -1,4 +1,4 @@
-var rooms = {}, rent = 2500, rentEl, roomCount, roomCountEl, personCount, slider, roomPercentage, roomsDisplay, totalRoomCost, perPersonCost, perRoomCost, roomPercent, personPercent, roomCost, personCost;
+var rooms = {}, baseline = 280, rent = 2500, rentEl, roomCount, roomCountEl, personCount, slider, roomPercentage, roomsDisplay, totalRoomCost, perPersonCost, perRoomCost, roomPercent, personPercent, roomCost, personCost;
 
 window.onload = function(){
   rentEl = document.querySelector("#rent");
@@ -46,13 +46,43 @@ window.onload = function(){
 function drawRooms(count){
   var transformArr = [];
   var totalPeople = 0;
+  
+  // transform values for rooms will all be the same
+  // calculate here
   perRoomCost = totalRoomCost/roomCount;
-  // if roomCount selected is less than previous roomCount, remove excess rooms from rooms 
-  // object, and excess room elements
+  var scaleMax = 280;
+  var scaleRatio = rent/scaleMax
+  var hRoomFinal = perRoomCost/scaleRatio;
+  var yRoomFinal = baseline - hRoomFinal;
+
+  // if roomCount selected is less than previous roomCount, prepare excess svg's 
+  // to be subtracted
+  for(var i=1; i<6; i++){
+
+    if(i>roomCount){
+      var roomGroup = document.querySelector("#room" + i);
+      // prepare room svg
+      var roomSVG = roomGroup.querySelector(".roomSVG");
+      var hRoom = parseInt(roomSVG.getAttribute("height"));
+      var yRoom = parseInt(roomSVG.getAttribute("y"));
+      transformArr.push(prepare(roomSVG, hRoom, 0, yRoom, baseline))
+      // prepare peerson svg's
+      for(var p=1; p<4; p++){
+        var tempEl = roomGroup.querySelector(".person" + p);
+        var hPerson = parseInt(tempEl.getAttribute("height"));
+        var yPerson = parseInt(tempEl.getAttribute("y"));
+        transformArr.push(prepare(tempEl, hPerson, 0, yPerson, baseline))
+      }
+    }
+  }
+  // remove excess rooms from room object, and excess room elements
   for(var room in rooms){
     if(room > count-1){
-      delete rooms[room];
+      // remove textual stuff
       roomsDisplay.children[roomsDisplay.children.length - 1].remove();
+      
+      // delete room property form rooms object
+      delete rooms[room];
     }
   }
   // Add up total occupancy, create new rooms (elements and in rooms object)
@@ -86,10 +116,8 @@ function drawRooms(count){
   }
 
   perPersonCost = (rent - totalRoomCost)/totalPeople;
-
-  // transform values for rooms will all be the same
-  // calculate here
-
+  var hPersonFinal = perPersonCost/scaleRatio;
+  var yPersonLowest = baseline - hRoomFinal - hPersonFinal;
 
   // remove all personCost/roomCost/totalCost elements in text part
   var removeEls = document.querySelectorAll(".personCost");
@@ -107,23 +135,38 @@ function drawRooms(count){
     removeEls[0].remove();
     var removeEls = document.querySelectorAll(".totalCost");
   }
-// ************** if you subtract rooms, they wont be in the rooms object, so they
-// ************** wont be in the trasnformArr to be deleted
+// 
   // iterate over rooms, correcting amount of person elements and adding total costs
   for(var room in rooms){
     
     // prepare objects and push into transformArr
-    var roomGroup = document.querySelector("#room" + (parseInt(room)+1);
-    var scaleMax = 150;
+    var roomGroup = document.querySelector("#room" + (parseInt(room)+1));
+
+    // prepare roomSVG for transformation
     var roomSVG = roomGroup.querySelector(".roomSVG");
     var h = parseInt(roomSVG.getAttribute("height"));
-    var hFinal = perRoomCost scaleMax;
     var y = parseInt(roomSVG.getAttribute("y"));
-    var yFinal = scaleMax;
-    transformArr.push(prepare(roomSVG, h, hFinal, y, yFinal))
+    transformArr.push(prepare(roomSVG, h, hRoomFinal, y, yRoomFinal))
 
-
+    // prepare person SVG's for transformation
     var people = rooms[room]["occupancy"];
+    for(var i=1; i<4; i++){
+        // subtract people if they are above the occupancy
+        if(i>people){
+          var tempEl = roomGroup.querySelector(".person" + (i));
+          var hPerson = parseInt(tempEl.getAttribute("height"));
+          var yPerson = parseInt(tempEl.getAttribute("y"));
+          transformArr.push(prepare(tempEl, hPerson, 0, yPerson, baseline))
+
+        // fix the size of person SVG's which remain or are added
+        } else{
+          var tempEl = roomGroup.querySelector(".person" + (i));
+          var hPerson = parseInt(tempEl.getAttribute("height"));
+          var yPerson = parseInt(tempEl.getAttribute("y"));
+          transformArr.push(prepare(tempEl, hPerson, hPersonFinal, yPerson, (yPersonLowest-(hPersonFinal*(i-1)))));
+        }
+      }
+
 
     // text stuff
     var div = roomsDisplay.children[room];
@@ -146,8 +189,8 @@ function drawRooms(count){
     div.appendChild(p3);
 
   }
-
-  // transform();
+  // perform transformation animations on the SVG's
+  transform(transformArr);
 }
 
 // Calculate how much height and y need to be incremented for 1/3 second transition
@@ -167,17 +210,18 @@ function prepare(el, h, hFinal, y, yFinal){
 function transform(transArr){
   
   var counter = 0;
-  
   var i = setInterval(function(){
     if(counter===20){
       clearInterval(i);
     } else{
-      el.setAttribute("height", (h+hIncr));
-      el.setAttribute("y", (y+yIncr));
-      h = h + hIncr;
-      y = y + yIncr;
-      counter++
-      console.log(hIncr);
+      transArr.forEach(function(svg){
+        svg.el.setAttribute("height", (svg.h+svg.hIncr));
+        svg.el.setAttribute("y", (svg.y+svg.yIncr));
+        svg.h = svg.h + svg.hIncr;
+        svg.y = svg.y + svg.yIncr;
+
+      });
+      counter++;
     }  
   }, 16);
 
