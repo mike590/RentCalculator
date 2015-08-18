@@ -44,6 +44,7 @@ window.onload = function(){
 }
 
 function drawRooms(count){
+  var transformArr = [];
   var totalPeople = 0;
   perRoomCost = totalRoomCost/roomCount;
   // if roomCount selected is less than previous roomCount, remove excess rooms from rooms 
@@ -86,6 +87,10 @@ function drawRooms(count){
 
   perPersonCost = (rent - totalRoomCost)/totalPeople;
 
+  // transform values for rooms will all be the same
+  // calculate here
+
+
   // remove all personCost/roomCost/totalCost elements in text part
   var removeEls = document.querySelectorAll(".personCost");
   while(removeEls[0]){
@@ -102,16 +107,23 @@ function drawRooms(count){
     removeEls[0].remove();
     var removeEls = document.querySelectorAll(".totalCost");
   }
+// ************** if you subtract rooms, they wont be in the rooms object, so they
+// ************** wont be in the trasnformArr to be deleted
   // iterate over rooms, correcting amount of person elements and adding total costs
   for(var room in rooms){
     
-    // animate bars
-    // var roomGroup = document.querySelector("#room" + (parseInt(room)+1);
-    // var roomSVG = roomGroup.querySelector;
-    // var people = rooms[room]["occupancy"];
-    // for(var i=1; i<people+1; i++){
-    //   var person
-    // }
+    // prepare objects and push into transformArr
+    var roomGroup = document.querySelector("#room" + (parseInt(room)+1);
+    var scaleMax = 150;
+    var roomSVG = roomGroup.querySelector(".roomSVG");
+    var h = parseInt(roomSVG.getAttribute("height"));
+    var hFinal = perRoomCost scaleMax;
+    var y = parseInt(roomSVG.getAttribute("y"));
+    var yFinal = scaleMax;
+    transformArr.push(prepare(roomSVG, h, hFinal, y, yFinal))
+
+
+    var people = rooms[room]["occupancy"];
 
     // text stuff
     var div = roomsDisplay.children[room];
@@ -130,22 +142,30 @@ function drawRooms(count){
     // create total cost element
     var p3 = document.createElement("p");
     p3.className = "totalCost";
-    p3.textContent = "Total Cost: $" + (perRoomCost + perPersonCost * rooms[room]["occupancy"]).toFixed(2);
+    p3.textContent = "Total Cost: $" + (perRoomCost + perPersonCost * people).toFixed(2);
     div.appendChild(p3);
 
   }
+
+  // transform();
 }
-// turn these three parameters to arrays, and accept the values for ell the Els being changed
-function transform(el, hFinal, yFinal){
-  var h = parseInt(el.getAttribute("height"));
+
+// Calculate how much height and y need to be incremented for 1/3 second transition
+// and return an object to be placed into an array or objects to be transformed
+function prepare(el, h, hFinal, y, yFinal){
   var hDelta = hFinal - h;
   // increment is found by dividing delta by frames/run throughs. for 1/3 second: 
   // interval repeats every 16 milliseconds for 60 fps/run throughs
   // 60/hDelta = 1 second, so 20/hDelta = 1/3 second
   var hIncr = hDelta/20;
-  var y = parseInt(el.getAttribute("y"));
   var yDelta = yFinal - y;
   var yIncr = yDelta/20;
+  return {el: el, h: h, hIncr: hIncr, y: y, yIncr: yIncr};
+}
+
+// accept array of objects with el and transform information to be transformed
+function transform(transArr){
+  
   var counter = 0;
   
   var i = setInterval(function(){
