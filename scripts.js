@@ -86,7 +86,7 @@ function drawRooms(count){
 
   perPersonCost = (rent - totalRoomCost)/totalPeople;
 
-  // remove all personCost/roomCost/totalCost elements
+  // remove all personCost/roomCost/totalCost elements in text part
   var removeEls = document.querySelectorAll(".personCost");
   while(removeEls[0]){
     removeEls[0].remove();
@@ -105,8 +105,16 @@ function drawRooms(count){
   // iterate over rooms, correcting amount of person elements and adding total costs
   for(var room in rooms){
     
-    var div = roomsDisplay.children[room];
+    // animate bars
+    // var roomGroup = document.querySelector("#room" + (parseInt(room)+1);
+    // var roomSVG = roomGroup.querySelector;
+    // var people = rooms[room]["occupancy"];
+    // for(var i=1; i<people+1; i++){
+    //   var person
+    // }
 
+    // text stuff
+    var div = roomsDisplay.children[room];
     // add the correct amount of personCost elements
     for(var i = 0; i < rooms[room]["occupancy"]; i++){
       var p1 = document.createElement("p");
@@ -114,7 +122,6 @@ function drawRooms(count){
       p1.textContent = "One Person: $" + perPersonCost.toFixed(2);
       div.appendChild(p1);
     }
-
     // create room cost element
     var p2 = document.createElement("p");
     p2.className = "roomCost";
@@ -143,7 +150,7 @@ function drawRooms(count){
 
   }
 }
-
+// turn these three parameters to arrays, and accept the values for ell the Els being changed
 function transform(el, hFinal, yFinal){
   var h = parseInt(el.getAttribute("height"));
   var hDelta = hFinal - h;
