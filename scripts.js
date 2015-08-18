@@ -46,14 +46,6 @@ window.onload = function(){
 function drawRooms(count){
   var transformArr = [];
   var totalPeople = 0;
-  
-  // transform values for rooms will all be the same
-  // calculate here
-  perRoomCost = totalRoomCost/roomCount;
-  var scaleMax = 280;
-  var scaleRatio = rent/scaleMax
-  var hRoomFinal = perRoomCost/scaleRatio;
-  var yRoomFinal = baseline - hRoomFinal;
 
   // if roomCount selected is less than previous roomCount, prepare excess svg's 
   // to be subtracted
@@ -116,6 +108,14 @@ function drawRooms(count){
   }
 
   perPersonCost = (rent - totalRoomCost)/totalPeople;
+  perRoomCost = totalRoomCost/roomCount;
+  // calculate scale to convert price to pixel heights and y's
+  var scaleMax = 220;
+  var scaleRatio = (perRoomCost+(perPersonCost*3))/scaleMax;
+  // calculate transform values for room SVG's
+  var hRoomFinal = perRoomCost/scaleRatio;
+  var yRoomFinal = baseline - hRoomFinal;
+  // calculate transform values for person SVG's
   var hPersonFinal = perPersonCost/scaleRatio;
   var yPersonLowest = baseline - hRoomFinal - hPersonFinal;
 
