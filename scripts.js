@@ -14,6 +14,10 @@ window.onload = function(){
   totalRoomCost = rent * roomCostPercentage;
   perRoomCost = totalRoomCost/roomCount;
   perPersonCost = rent - totalRoomCost;
+  roomPercent.textContent = "%" + (roomCostPercentage*100).toFixed(2);
+  roomCost.textContent = "$" + totalRoomCost.toFixed(2);
+  personPercent.textContent = "%" + (100 - roomCostPercentage*100).toFixed(2);
+  personCost.textContent = "$" + (rent - totalRoomCost).toFixed(2); 
   drawRooms(roomCount);
 
   roomCountEl.addEventListener("change", function(e){
