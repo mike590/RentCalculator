@@ -69,6 +69,7 @@ function drawRooms(count){
       occ.type = "number";
       occ.value = 1;
       occ.min = 1;
+      occ.max = 3;
       occ.addEventListener("change", function(e){
         rooms[parseInt(this.id)]["occupancy"] = parseInt(this.value);
 
@@ -85,7 +86,7 @@ function drawRooms(count){
 
   perPersonCost = (rent - totalRoomCost)/totalPeople;
 
-  // remove all personCost/roomCost/totalCost elements
+  // remove all personCost/roomCost/totalCost elements in text part
   var removeEls = document.querySelectorAll(".personCost");
   while(removeEls[0]){
     removeEls[0].remove();
@@ -104,8 +105,16 @@ function drawRooms(count){
   // iterate over rooms, correcting amount of person elements and adding total costs
   for(var room in rooms){
     
-    var div = roomsDisplay.children[room];
+    // animate bars
+    // var roomGroup = document.querySelector("#room" + (parseInt(room)+1);
+    // var roomSVG = roomGroup.querySelector;
+    // var people = rooms[room]["occupancy"];
+    // for(var i=1; i<people+1; i++){
+    //   var person
+    // }
 
+    // text stuff
+    var div = roomsDisplay.children[room];
     // add the correct amount of personCost elements
     for(var i = 0; i < rooms[room]["occupancy"]; i++){
       var p1 = document.createElement("p");
@@ -113,7 +122,6 @@ function drawRooms(count){
       p1.textContent = "One Person: $" + perPersonCost.toFixed(2);
       div.appendChild(p1);
     }
-
     // create room cost element
     var p2 = document.createElement("p");
     p2.className = "roomCost";
@@ -124,56 +132,36 @@ function drawRooms(count){
     p3.className = "totalCost";
     p3.textContent = "Total Cost: $" + (perRoomCost + perPersonCost * rooms[room]["occupancy"]).toFixed(2);
     div.appendChild(p3);
-    // create svg element
-    // var svg = document.createElement("svg");
-    // svg.setAttribute("height", "10%");
-    // svg.setAttribute("width", "10%");
-    // var rect = document.createElement("rect");
-    // rect.setAttribute("x", "40");
-    // rect.setAttribute("y", "40");
-    // rect.setAttribute("height", "40");
-    // rect.setAttribute("width", "40");
-    // rect.style.stroke = "#006600";
-    // svg.appendChild(rect);
-    // <rect x="10" y="10" height="100" width="100"
-    //     style="stroke:#006600; fill: #00cc00"/>
-    // div.appendChild(svg);
-
 
   }
 }
+// turn these three parameters to arrays, and accept the values for ell the Els being changed
+function transform(el, hFinal, yFinal){
+  var h = parseInt(el.getAttribute("height"));
+  var hDelta = hFinal - h;
+  // increment is found by dividing delta by frames/run throughs. for 1/3 second: 
+  // interval repeats every 16 milliseconds for 60 fps/run throughs
+  // 60/hDelta = 1 second, so 20/hDelta = 1/3 second
+  var hIncr = hDelta/20;
+  var y = parseInt(el.getAttribute("y"));
+  var yDelta = yFinal - y;
+  var yIncr = yDelta/20;
+  var counter = 0;
+  
+  var i = setInterval(function(){
+    if(counter===20){
+      clearInterval(i);
+    } else{
+      el.setAttribute("height", (h+hIncr));
+      el.setAttribute("y", (y+yIncr));
+      h = h + hIncr;
+      y = y + yIncr;
+      counter++
+      console.log(hIncr);
+    }  
+  }, 16);
 
-// function drawRooms(count){
-//   var attr1 = "http://www.w3.org/2000/svg";
-//   var attr2 = "http://www.w3.org/1999/xlink";
-//   for(var i=1; i<(count+1); i++){
-//     rooms[i] = {occupancy: 1};
-//   }
-//   for(var room in rooms){
-//     var temp = document.createElement("div");
-//     temp.className = "room";
-//     var svg = document.createElement("svg");
-//     svg.setAttribute("xmlns", attr1);
-//     svg.setAttribute("xmlns:xlink", attr2);
-//     svg.setAttribute("height", "100");
-//     svg.setAttribute("width", "100");
-//     svg.style.margin = "0px";
-//     var group = document.createElement("svg");
-//     group.setAttribute("x", "10");
-//     var line = document.createElement("line");
-//     line.setAttribute("x1", "0");
-//     line.setAttribute("y1", "0");
-//     line.setAttribute("x2", "100");
-//     line.setAttribute("y2", "100");
-//     line.style.stroke = "#006600";
-//     group.appendChild(line);
-//     svg.appendChild(group);
-//     temp.appendChild(svg);
-
-//     roomsDisplay.appendChild(temp);
-
-//   }
-// }
+}
 
 
 

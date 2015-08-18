@@ -9,7 +9,7 @@
 <body>
 
   <h1>There are
-  <input type="number" value=1 id="room_count" />
+  <input type="number" value=1 id="room_count" min="1" max="5"/>
   rooms.</h1>
   <h1>The rent is <input type="number" id='rent' value=2500></input></h1>
   <input type="range" id='split' min=0 max=100 step=1  value=80 />
@@ -27,24 +27,54 @@
     </div>
   </div>
 
+  <svg width="90%" height="300px" style="border:solid 2px #006600;" id='svgTest'>
+    <!-- base line -->
+    <line x1="100" y1="280" x2="1000" y2="280" style="stroke:black;stroke-width:3"></line>
+    <!-- room 1 -->
+    <g id="room1">
+      <rect class="roomSVG" x="100" y="180" height="100" width="180" style="stroke:black;stroke-width:2;fill:green;"></rect>
+      <rect class="person1" x="100" y="130" height="50" width="180" style="fill:red;stroke:black;stroke-width:2;"></rect>
+      <rect class="person2" x="100" y="80" height="50" width="180" style="fill:red;stroke:black;stroke-width:2;"></rect>
+      <rect class="person3" x="100" y="30" height="50" width="180" style="fill:red;stroke:black;stroke-width:2;"></rect>
+    </g>
+    <!-- room 2 -->
+    <g id="room2">
+      <rect class="roomSVG" x="280" y="180" height="100" width="180" style="stroke:black;stroke-width:2;fill:green;"></rect>
+      <rect class="person1" x="280" y="130" height="50" width="180" style="fill:red;stroke:black;stroke-width:2;"></rect>
+      <rect class="person2" x="280" y="80" height="50" width="180" style="fill:red;stroke:black;stroke-width:2;"></rect>
+      <rect class="person3" x="280" y="30" height="50" width="180" style="fill:red;stroke:black;stroke-width:2;"></rect>
+    </g>
+    <!-- room 3 -->
+    <g id="room3">
+      <rect class="roomSVG" x="460" y="180" height="100" width="180" style="stroke:black;stroke-width:2;fill:green;"></rect>
+      <rect class="person1" x="460" y="130" height="50" width="180" style="fill:red;stroke:black;stroke-width:2;"></rect>
+      <rect class="person2" x="460" y="80" height="50" width="180" style="fill:red;stroke:black;stroke-width:2;"></rect>
+      <rect class="person3" x="460" y="30" height="50" width="180" style="fill:red;stroke:black;stroke-width:2;"></rect>
+    </g>
+    <!-- room 4 -->
+    <g id="room4">
+      <rect class="roomSVG" x="640" y="180" height="100" width="180" style="stroke:black;stroke-width:2;fill:green;"></rect>
+      <rect class="person1" x="640" y="130" height="50" width="180" style="fill:red;stroke:black;stroke-width:2;"></rect>
+      <rect class="person2" x="640" y="80" height="50" width="180" style="fill:red;stroke:black;stroke-width:2;"></rect>
+      <rect class="person3" x="640" y="30" height="50" width="180" style="fill:red;stroke:black;stroke-width:2;"></rect>
+    </g>
+    <!-- room 5 -->
+    <g id="room5">
+      <rect class="roomSVG" x="820" y="180" height="100" width="180" style="stroke:black;stroke-width:2;fill:green;"></rect>
+      <rect class="person1" x="820" y="130" height="50" width="180" style="fill:red;stroke:black;stroke-width:2;"></rect>
+      <rect class="person2" x="820" y="80" height="50" width="180" style="fill:red;stroke:black;stroke-width:2;"></rect>
+      <rect class="person3" x="820" y="30" height="50" width="180" style="fill:red;stroke:black;stroke-width:2;"></rect>
+    </g>
+  </svg>
 
-<svg width="90%" height="250px" style="border:solid 2px #006600;" id='svgTest'>
-<!--   <rect x="20" y="20" height="50" width="50" style="stroke:#006600;" />
- --></svg>
+
 <div id="rooms_display">
   
 </div>
 
-<script type="text/javascript">
-  var svg = document.querySelector("#svgTest")
-  var rect = document.createElement("rect");
-  rect.setAttribute("x", "40");
-  rect.setAttribute("y", "40");
-  rect.setAttribute("height", "40");
-  rect.setAttribute("width", "40");
-  rect.style.stroke = "#006600";
-  svg.appendChild(rect);
-</script>
+  <div id="rooms_display">
+    
+  </div>
 
   
 </body>
