@@ -132,20 +132,7 @@ function drawRooms(count){
     p3.className = "totalCost";
     p3.textContent = "Total Cost: $" + (perRoomCost + perPersonCost * rooms[room]["occupancy"]).toFixed(2);
     div.appendChild(p3);
-    // create svg element
-    // var svg = document.createElement("svg");
-    // svg.setAttribute("height", "10%");
-    // svg.setAttribute("width", "10%");
-    // var rect = document.createElement("rect");
-    // rect.setAttribute("x", "40");
-    // rect.setAttribute("y", "40");
-    // rect.setAttribute("height", "40");
-    // rect.setAttribute("width", "40");
-    // rect.style.stroke = "#006600";
-    // svg.appendChild(rect);
-    // <rect x="10" y="10" height="100" width="100"
-    //     style="stroke:#006600; fill: #00cc00"/>
-    // div.appendChild(svg);
+
 
 
   }
@@ -177,37 +164,6 @@ function transform(el, hFinal, yFinal){
   }, 16);
 
 }
-// function drawRooms(count){
-//   var attr1 = "http://www.w3.org/2000/svg";
-//   var attr2 = "http://www.w3.org/1999/xlink";
-//   for(var i=1; i<(count+1); i++){
-//     rooms[i] = {occupancy: 1};
-//   }
-//   for(var room in rooms){
-//     var temp = document.createElement("div");
-//     temp.className = "room";
-//     var svg = document.createElement("svg");
-//     svg.setAttribute("xmlns", attr1);
-//     svg.setAttribute("xmlns:xlink", attr2);
-//     svg.setAttribute("height", "100");
-//     svg.setAttribute("width", "100");
-//     svg.style.margin = "0px";
-//     var group = document.createElement("svg");
-//     group.setAttribute("x", "10");
-//     var line = document.createElement("line");
-//     line.setAttribute("x1", "0");
-//     line.setAttribute("y1", "0");
-//     line.setAttribute("x2", "100");
-//     line.setAttribute("y2", "100");
-//     line.style.stroke = "#006600";
-//     group.appendChild(line);
-//     svg.appendChild(group);
-//     temp.appendChild(svg);
-
-//     roomsDisplay.appendChild(temp);
-
-//   }
-// }
 
 
 
