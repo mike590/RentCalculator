@@ -115,7 +115,9 @@ function drawRooms(count){
   perRoomCost = totalRoomCost/roomCount;
   // calculate scale to convert price to pixel heights and y's
   var scaleMax = 220;
-  var scaleRatio = (perRoomCost+(perPersonCost*3))/scaleMax;
+  // Choose which scaleRatio to use, the first changes scale based on cost, the second is fixed
+  // var scaleRatio = (perRoomCost+(perPersonCost*3))/scaleMax;
+  var scaleRatio = 2500/270;
   // calculate transform values for room SVG's
   var hRoomFinal = perRoomCost/scaleRatio;
   var yRoomFinal = baseline - hRoomFinal;
