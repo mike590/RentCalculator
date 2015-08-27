@@ -29,6 +29,10 @@ window.onload = function(){
     // change to keyDown or something and setTimeout here so it waits 1-2 seconds after changing
     rent = parseInt(rentEl.value);
     totalRoomCost = rent * roomCostPercentage;
+    roomPercent.textContent = "%" + (roomCostPercentage*100).toFixed(2);
+    roomCost.textContent = "$" + totalRoomCost.toFixed(2);
+    personPercent.textContent = "%" + (100 - roomCostPercentage*100).toFixed(2);
+    personCost.textContent = "$" + (rent - totalRoomCost).toFixed(2); 
 
     drawRooms(roomCount);
   });
@@ -114,10 +118,9 @@ function drawRooms(count){
   perPersonCost = (rent - totalRoomCost)/totalPeople;
   perRoomCost = totalRoomCost/roomCount;
   // calculate scale to convert price to pixel heights and y's
-  var scaleMax = 220;
   // Choose which scaleRatio to use, the first changes scale based on cost, the second is fixed
-  // var scaleRatio = (perRoomCost+(perPersonCost*3))/scaleMax;
-  var scaleRatio = 2500/270;
+  var scaleRatio = (perRoomCost+(perPersonCost*3))/baseline;
+  // var scaleRatio = 2500/baseline;
   // calculate transform values for room SVG's
   var hRoomFinal = perRoomCost/scaleRatio;
   var yRoomFinal = baseline - hRoomFinal;

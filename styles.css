@@ -1,4 +1,4 @@
-#svgTest {
+#svgBoard {
   margin: 15px auto;
   display: block;
 }
@@ -21,13 +21,19 @@
   display: block;
 }
 
+#split {
+  width: 54%;
+  margin: auto 22%;
+}
+
 #sharesDiv {
-  display: table;
+  width: 90%;
+  margin-left: 5%;
 }
 
 .shares {
   float: left;
-  margin-left: 15px;
+  margin-left: 25%;
 }
 
 .cost, .percent {
